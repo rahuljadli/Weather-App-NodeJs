@@ -2,11 +2,16 @@ const forcast=require('../utiles/forcast')
 const geo=require('../utiles/geocoding')
 const express=require('express')
 const app=express()
+const path=require('path')
+
+const res=path.join(__dirname,'../public')
+app.use(express.static(res))
+
 let temp=0
 let feeltemp=0
-app.get('/home',(req,res)=>{
-res.send("welcome Rahul")
-})
+
+
+
 
 
 
