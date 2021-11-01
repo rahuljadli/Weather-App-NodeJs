@@ -4,7 +4,7 @@ const express=require('express')
 const app=express()
 const path=require('path')
 const hbs=require('hbs')
-
+const port=process.env.PORT || 3000
 // const res=path.join(__dirname,'../public')
 // app.use(express.static(res))
 app.use(express.static('../public'))
@@ -73,7 +73,7 @@ app.get('/weather',(req,res)=>{
 
 
 
-app.listen(3000,()=>{
+app.listen(port,()=>{
     console.log("Server up and running")
 })
 

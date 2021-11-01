@@ -8,7 +8,7 @@ weatherForm.addEventListener("submit",(e)=>{
 const location1=input.value
 
 e.preventDefault()
-fetch("http://localhost:3000/weather?location="+location1).then((response)=>{
+fetch("/weather?location="+location1).then((response)=>{
 response.json().then((data)=>{
 
     mess1.textContent="Loading..."
