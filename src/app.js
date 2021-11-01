@@ -3,10 +3,11 @@ const geo=require('../utiles/geocoding')
 const express=require('express')
 const app=express()
 const path=require('path')
+const hbs=require('hbs')
 
 // const res=path.join(__dirname,'../public')
 // app.use(express.static(res))
-
+app.use(express.static('../public'))
 app.set('views', path.join(__dirname, '../views'));
 let temp=0
 let feeltemp=0
@@ -15,34 +16,62 @@ let feeltemp=0
 const viewsPath = path.join(__dirname, '../views');
 app.set('view engine', 'hbs')
 
-
-
+const partialPath = path.join(__dirname, '/templates/partials');
+hbs.registerPartials(partialPath)
 app.get('/',(req,res)=>{
-    res.render('index', {root: viewsPath,	title: 'Weather', name: 'RAHUL'})
+    res.render('index', {root: viewsPath,	title: 'Weather', name: 'Rahul Jadli'})
     })
     
+    app.get('/about',(req,res)=>{
+        res.render('about', {root: viewsPath,	title: 'Weather', name: 'Rahul Jadli'})
+        })
+        
+ app.get('/weather',(req,res)=>{
+        
+if(!req.query.location)
+{
+    return res.send({
+        error:"please enter the loaction"
+    })
+}
 
+else{
+let res1={}
+    geo.geocoding(req.query.location,(error,obj)=>{
+       
 
-
-geo.geocoding('Dehradun',(error,obj)=>{
+    
+           forcast.forcast(obj,(error,ans1)=>{
+            console.log("Step-12"+JSON.stringify(ans1))
+            
+            if(ans1.code==404)
+            return res.send({
+                error:"Invalid Location"
+            })
+            res.send({
+                location:req.query.location,
+                temp:ans1.temp,
+                feeltemp:ans1.feeltemp
+            })
+           } 
+            )
+        })
+        console.log("final"+JSON.stringify(res1))
     
 
-obj['error']=error
+}
 
-
-
-   const ans= forcast.forcast(obj,(error,obj)=>{
-        console.log(obj)
-    }
-    )
-    console.log(ans)
 })
 
 app.get('/weather',(req,res)=>{
-    res.send("Welcome Rahul outside temp"+temp+"but feels like"+feeltemp)
+    res.render('weather', {root: viewsPath,	title: 'Weather', name: 'RAHUL'})
+
     })
 
-
+    app.get('*',(req,res)=>{
+        res.send("Page not found")
+        })
+    
 
 
 
