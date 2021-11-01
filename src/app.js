@@ -42,7 +42,6 @@ let res1={}
 
     
            forcast.forcast(obj,(error,ans1)=>{
-            console.log("Step-12"+JSON.stringify(ans1))
             
             if(ans1.code==404)
             return res.send({
@@ -56,7 +55,6 @@ let res1={}
            } 
             )
         })
-        console.log("final"+JSON.stringify(res1))
     
 
 }
