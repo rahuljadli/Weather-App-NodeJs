@@ -7,7 +7,7 @@ const hbs=require('hbs')
 const port=process.env.PORT || 3000
 // const res=path.join(__dirname,'../public')
 // app.use(express.static(res))
-app.use(express.static('../public'))
+app.use(express.static(path.join(__dirname, '../public')))
 app.set('views', path.join(__dirname, '../views'));
 let temp=0
 let feeltemp=0
